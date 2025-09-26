@@ -2,7 +2,15 @@ const db = require('../db/connection');
 
 // Get all transactions
 exports.getTransactions = (req, res) => {
-  db.query('SELECT * FROM transactions', (err, results) => {
+  let query = 'SELECT * FROM transactions';
+  let params = [];
+
+  if (req.query.month && req.query.year) {
+    query += ' WHERE YEAR(transaction_date) = ? AND MONTH(transaction_date) = ?';
+    params = [req.query.year, req.query.month];
+  }
+
+  db.query(query, params, (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(results);
   });

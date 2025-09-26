@@ -1,32 +1,36 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
-// Small logo for navbar
-const logo = "https://www.istockphoto.com/illustrations/tree-logo"; // use same image as Login.js
+// Local logo for navbar
+const logo = "/logo.png";
 
-function Navbar() {
+function Navbar({ onLogout, userEmail }) {
   const navigate = useNavigate();
-  const user = localStorage.getItem('user');
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    navigate('/login'); // redirect to login page
+    onLogout();
+    navigate('/login');
   };
 
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <img src={logo} alt="Budget Planner Logo" className="navbar-logo" />
+        <img src={logo} alt="Budget Planner Logo" className="navbar-logo" style={{ borderRadius: '50%' }} />
         <h1>Budget Planner</h1>
       </div>
 
+      <div className="navbar-links">
+        <Link to="/">Dashboard</Link>
+        <Link to="/transactions">Transactions</Link>
+        <Link to="/users">Users</Link>
+        <Link to="/categories">Categories</Link>
+      </div>
+
       <div className="profile-section">
-        {user ? (
-          <span>Welcome, {user}</span>
-        ) : (
-          <span>Not logged in</span>
-        )}
+        <span>Welcome, {userEmail}</span>
+        <button onClick={handleLogout} className="logout-btn">Logout</button>
       </div>
     </nav>
   );

@@ -34,39 +34,15 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* Navbar */}
-        {isLoggedIn && <Navbar />}
-
-        {/* Profile top-right */}
-        {isLoggedIn && (
-          <div style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            padding: '10px 20px',
-            backgroundColor: '#2a9d8f',
-            color: 'white'
-          }}>
-            <span style={{ marginRight: '20px' }}>{userEmail}</span>
-            <button 
-              onClick={handleLogout} 
-              style={{
-                padding: '5px 10px',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                backgroundColor: '#264653',
-                color: 'white',
-                border: 'none'
-              }}
-            >
-              Logout
-            </button>
-          </div>
-        )}
-
+        {isLoggedIn && <Navbar onLogout={handleLogout} userEmail={userEmail} />}
         <main>
           <Routes>
-            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route 
+              path="/login" 
+              element={
+                <Login onLogin={handleLogin} />
+              } 
+            />
             {isLoggedIn ? (
               <>
                 <Route path="/" element={<Dashboard />} />

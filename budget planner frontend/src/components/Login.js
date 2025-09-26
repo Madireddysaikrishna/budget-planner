@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-// Updated logo URL from Google/Drive
-const logo = "https://www.istockphoto.com/illustrations/tree-logo"; // replace with your actual image URL if needed
+
+// Local logo
+const logo = "/logo.png";
 
 function Login({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -72,23 +73,20 @@ function Login({ onLogin }) {
     .catch(() => setError('Server error. Try again.'));
   };
 
-  // Google & Facebook login (dummy handlers)
+  // Google & Facebook login (not implemented yet)
   const handleGoogleLogin = () => {
-    localStorage.setItem('user', 'googleuser@example.com');
-    onLogin();
-    navigate('/');
+    alert('Google login not implemented yet. Please use email/password.');
   };
 
   const handleFacebookLogin = () => {
-    localStorage.setItem('user', 'fbuser@example.com');
-    onLogin();
-    navigate('/');
+    alert('Facebook login not implemented yet. Please use email/password.');
   };
 
   return (
     <div className={`login-split ${fadeOut ? 'fade-out' : ''}`}>
       <div className="login-left">
         <img src={logo} alt="Budget Planner Logo" className="logo-large" />
+        <h2 className="logo-quote">It's all about money</h2>
       </div>
 
       <div className="login-right">
